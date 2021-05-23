@@ -40,7 +40,7 @@ const mutations = <MutationTree<State>>{
 const actions = <ActionTree<State, any>>{
   // Nuxt call when mode is universal (only process.server)
   async nuxtServerInit(
-    { commit }: ActionContext<State, any>,
+    { commit, dispatch }: ActionContext<State, any>,
     { req, res }: any
   ) {
     const cookies = cookie.parse(req?.headers.cookie || '') || {}
@@ -64,6 +64,7 @@ const actions = <ActionTree<State, any>>{
     }
     if (isAliveJWT(credential.access) && isAliveJWT(credential.refresh)) {
       commit(Action.SET_CREDENTIAL, credential)
+      await dispatch('setUserInfo')
     }
   },
   setMode({ commit }: ActionContext<State, any>): void {
@@ -74,6 +75,15 @@ const actions = <ActionTree<State, any>>{
     payload: Credential
   ): void {
     commit(Action.SET_CREDENTIAL, payload)
+  },
+  async setUserInfo(): Promise<void> {
+    const me = await this.$axios.get(API_ROUTES.AUTH_ME)
+    // @ts-ignore
+    this.$auth.setUser(me.data)
+  },
+  async getMe(): Promise<any> {
+    const response = await this.$axios.get(API_ROUTES.AUTH_ME)
+    return response?.data
   }
 }
 

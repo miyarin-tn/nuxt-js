@@ -36,12 +36,64 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // https://auth.nuxtjs.org/guide/setup
+    '@nuxtjs/auth',
+    // https://www.npmjs.com/package/cookie-universal-nuxt
+    'cookie-universal-nuxt'
   ],
+
+  router: {
+    middleware: ['authenticated', 'slash']
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.API_BASE_URL || 'http://localhost:8080'
+  },
+
+  auth: {
+    strategies: {
+      /* local: {
+        scheme: 'local',
+        token: {
+          property: 'access'
+        },
+        refreshToken: {
+          property: 'refresh',
+          data: 'refresh'
+        },
+        user: {
+          property: false,
+          autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh-token', method: 'post' },
+          user: { url: '/auth/me', method: 'get' },
+          logout: { url: '/auth/logout', method: 'post' }
+        }
+      } */
+      local: {
+        scheme: 'local',
+        endpoints: false
+      }
+    },
+    localStorage: false,
+    /* cookie: {
+      prefix: 'auth.',
+      options: {
+        path: '/',
+        secure: true
+      }
+    }, */
+    cookie: false,
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/'
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

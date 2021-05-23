@@ -10,17 +10,10 @@
           target="_blank"
           rel="noopener noreferrer"
           class="button--green"
-        >         
+        >
           Documentation
         </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+        <button class="button--grey" @click="doLogout">Logout</button>
       </div>
     </div>
   </div>
@@ -28,7 +21,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import axios from 'axios'
+import { APP_ROUTES } from '~/constants/app-routes'
+import { API_ROUTES } from '~/constants/api-routes'
 
 export default Vue.extend({
   name: 'Home',
@@ -43,6 +39,18 @@ export default Vue.extend({
   },
   mounted() {
     this.version = this.getVersion
+  },
+  methods: {
+    ...mapActions(['setCredential']),
+    async doLogout() {
+      try {
+        await axios.post(
+          `${API_ROUTES.BASE_API}${API_ROUTES.LOCAL_SERVER_LOGOUT}`
+        )
+        await this.$auth.logout()
+        this.$router.replace(APP_ROUTES.LOGIN)
+      } catch (e) {}
+    }
   }
 })
 </script>
@@ -60,6 +68,11 @@ export default Vue.extend({
 
 .links {
   padding-top: 15px;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .button--green {
