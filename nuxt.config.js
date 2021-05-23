@@ -55,6 +55,12 @@ export default {
     ]
   },
 
+  // Server Middleware custom API endpoint
+  serverMiddleware: [
+    '~/server-middleware/hook.ts',
+    { path: '/api', handler: '~/server-middleware/index.ts' }
+  ],
+
   // Server Configuration
   server: {
     port: process.env.APP_PORT || 3000
