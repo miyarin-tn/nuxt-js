@@ -2,7 +2,8 @@ import { GetterTree, MutationTree, ActionTree, ActionContext } from 'vuex'
 import cookie from 'cookie'
 import {
   AUTH_ACCESS_TOKEN_KEY,
-  AUTH_REFRESH_TOKEN_KEY
+  AUTH_REFRESH_TOKEN_KEY,
+  NAMESPACE
 } from '../constants/configs'
 import { API_ROUTES } from '~/constants/api-routes'
 import { State, Credential } from '~/interface/state'
@@ -66,6 +67,9 @@ const actions = <ActionTree<State, any>>{
       commit(Action.SET_CREDENTIAL, credential)
       await dispatch('setUserInfo')
     }
+    dispatch(`${NAMESPACE.settings}/setLanguage`, this.$i18n.locale, {
+      root: true
+    })
   },
   setMode({ commit }: ActionContext<State, any>): void {
     commit(Action.SET_MODE, MODE_THEME[1])

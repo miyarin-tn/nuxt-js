@@ -6,7 +6,7 @@
           <input
             v-model="form.email"
             type="text"
-            placeholder="email"
+            :placeholder="$t('EMAIL')"
             class="field--normal"
           />
         </div>
@@ -14,11 +14,11 @@
           <input
             v-model="form.password"
             type="password"
-            placeholder="password"
+            :placeholder="$t('PASSWORD')"
             class="field--normal"
           />
         </div>
-        <button class="button--green" type="submit">Login</button>
+        <button class="button--green" type="submit">{{ $t('LOGIN') }}</button>
       </form>
     </div>
   </div>

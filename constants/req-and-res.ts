@@ -3,10 +3,10 @@ export const CODE_RAR = {
 }
 
 export const MESSAGE_RAR = {
-  TOKEN_EXPIRED: 'Token is expired',
-  UNAUTHORIZED: 'Unauthorized'
+  TOKEN_EXPIRED: 'TOKEN_EXPIRED',
+  UNAUTHORIZED: 'UNAUTHORIZED'
 }
 
 export const TITLE_RAR = {
-  ERROR: 'Error'
+  ERROR: 'ERROR'
 }

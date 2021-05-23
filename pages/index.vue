@@ -3,7 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">NuxtJS</h1>
-      <p class="text--right">Version {{ version || '' }}</p>
+      <p class="text--right">{{ $t('VERSION') }} {{ version || '' }}</p>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
@@ -11,9 +11,11 @@
           rel="noopener noreferrer"
           class="button--green"
         >
-          Documentation
+          {{ $t('DOCUMENTATION') }}
         </a>
-        <button class="button--grey" @click="doLogout">Logout</button>
+        <button class="button--grey" @click="doLogout">
+          {{ $t('LOGOUT') }}
+        </button>
       </div>
     </div>
   </div>

@@ -35,6 +35,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    // https://i18n.nuxtjs.org/setup
+    'nuxt-i18n', // i18n have to put before axios
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://auth.nuxtjs.org/guide/setup
@@ -94,6 +96,26 @@ export default {
       callback: '/login',
       home: '/'
     }
+  },
+
+  // i18n module configuration: https://i18n.nuxtjs.org/setup
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        file: 'en.ts'
+      },
+      {
+        code: 'vi',
+        iso: 'vi-VN',
+        file: 'vi.ts'
+      }
+    ],
+    lazy: true,
+    langDir: 'locales/',
+    defaultLocale: 'en',
+    strategy: 'no_prefix'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

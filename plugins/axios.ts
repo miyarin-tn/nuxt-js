@@ -5,7 +5,7 @@ import { CODE_RAR, TITLE_RAR, MESSAGE_RAR } from '~/constants/req-and-res'
 import { Action } from '~/enum/action'
 import { isAliveJWT } from '~/utils/token'
 
-export default ({ $axios, _app, store, redirect, _route, error }: any) => {
+export default ({ $axios, app, store, redirect, _route, error }: any) => {
   const checkAndRefreshToken = async ({
     baseURL,
     accessToken,
@@ -77,6 +77,17 @@ export default ({ $axios, _app, store, redirect, _route, error }: any) => {
     config.headers.Authorization = `Bearer ${accessToken}`
   }
 
+  let lang = store.state?.settings?.language
+  const browserLang = app.$cookies.get('i18n_redirected')
+  if (browserLang) {
+    lang = browserLang
+  }
+  if (lang) {
+    $axios.defaults.headers.common['Accept-Language'] = lang.replace(/_/g, '-')
+  } else {
+    delete $axios.defaults.headers.common['accept-language']
+  }
+
   $axios.interceptors.request.use(
     async (config: any) => {
       const accessToken = store?.state?.credential?.access
@@ -136,8 +147,8 @@ export default ({ $axios, _app, store, redirect, _route, error }: any) => {
       } else if (statusCode === 401) {
         return error({
           statusCode: 401,
-          title: TITLE_RAR.ERROR,
-          message: MESSAGE_RAR.UNAUTHORIZED
+          title: app.i18n.t(TITLE_RAR.ERROR),
+          message: app.i18n.t(MESSAGE_RAR.UNAUTHORIZED)
         })
       }
       return Promise.reject(err)
