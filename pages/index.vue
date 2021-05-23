@@ -3,6 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">NuxtJS</h1>
+      <p class="text--right">Version {{ version || '' }}</p>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
@@ -27,10 +28,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   name: 'Home',
-  layout: 'app'
+  layout: 'app',
+  data() {
+    return {
+      version: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['getVersion'])
+  },
+  mounted() {
+    this.version = this.getVersion
+  }
 })
 </script>
 
