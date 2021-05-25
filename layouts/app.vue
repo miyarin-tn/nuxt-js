@@ -1,21 +1,32 @@
 <template>
   <div>
-    <select
-      v-model="currentLanguage"
-      class="c-lang"
-      @change="setLocale($event.target.value)"
-    >
-      <option v-for="lng in allLanguages" :key="lng">{{ lng }}</option>
-    </select>
+    <div class="c-options">
+      <select
+        v-model="currentLanguage"
+        @change="setLocale($event.target.value)"
+      >
+        <option v-for="lng in allLanguages" :key="lng">{{ lng }}</option>
+      </select>
+      <label class="c-switch">
+        <input v-model="checked" type="checkbox" @input="changeMode" />
+        <span class="c-slider round"></span>
+      </label>
+    </div>
     <Nuxt />
   </div>
 </template>
 
 <script lang="ts">
 import { mapGetters, mapActions } from 'vuex'
-import { NAMESPACE } from '~/constants/configs'
+import { NAMESPACE, MODE_THEME } from '~/constants/configs'
 
 export default {
+  data() {
+    return {
+      modes: MODE_THEME,
+      isDarkMode: false
+    }
+  },
   head(): any {
     // @ts-ignore
     const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true })
@@ -41,6 +52,15 @@ export default {
       set(newLang: string) {
         return newLang
       }
+    },
+    checked: {
+      get(): boolean {
+        // @ts-ignore
+        return this.$colorMode.value === 'dark'
+      },
+      set(newColor: string) {
+        return newColor
+      }
     }
   },
   methods: {
@@ -49,6 +69,10 @@ export default {
       // @ts-ignore
       this.$i18n.setLocale(lang)
       this.setLanguage(lang)
+    },
+    changeMode() {
+      // @ts-ignore
+      this.$colorMode.preference = this.checked ? 'light' : 'dark'
     }
   }
 }

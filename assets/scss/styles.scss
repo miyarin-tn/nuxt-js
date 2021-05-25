@@ -1,5 +1,7 @@
 @import 'variables';
 @import 'mixins';
+@import 'light';
+@import 'dark';
 
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -29,11 +31,58 @@ html {
   text-align: center;
 }
 
-.c-lang {
+.c-options {
   position: absolute;
   right: 10px;
   top: 10px;
-  outline: none;
   font-family: inherit;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  > *:not(:first-child) {
+    margin-left: 10px;
+  }
+  select {
+    border: 1px solid #3b8070;
+    outline: none;
+  }
+}
+
+.c-switch {
+  position: relative;
+  width: 30px;
+  height: 18px;
+  .c-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+    }
+    &.round {
+      border-radius: 9px;
+    }
+  }
+  input {
+    display: none;
+    &:checked + .c-slider {
+      background-color: #3b8070;
+      &::before {
+        transform: translateX(12px);
+      }
+    }
+  }
 }

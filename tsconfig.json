@@ -28,6 +28,7 @@
       "@nuxt/types",
       "nuxt-i18n",
       "@nuxtjs/axios",
+      "@nuxtjs/color-mode",
       "@types/node"
     ]
   },
