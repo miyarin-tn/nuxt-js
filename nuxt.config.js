@@ -128,7 +128,10 @@ export default {
         jQuery: 'jquery',
         'window.jQuery': 'jquery'
       })
-    ]
+    ],
+    splitChunks: {
+      layouts: true
+    }
   },
 
   // Server Middleware custom API endpoint
