@@ -134,6 +134,8 @@ export default {
     }
   },
 
+  buildDir: process.env.NODE_ENV === 'production' ? '.nuxt-prod' : '.nuxt',
+
   // Server Middleware custom API endpoint
   serverMiddleware: [
     '~/server-middleware/hook.ts',
