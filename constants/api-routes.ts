@@ -5,5 +5,6 @@ export const API_ROUTES = {
   LOCAL_SERVER_LOGOUT: '/logout',
   AUTH_LOGIN: '/auth/login',
   AUTH_REFRESH: '/auth/refresh',
-  AUTH_ME: '/auth/me'
+  AUTH_ME: '/auth/me',
+  AUTH_ME_UPLOAD: '/auth/me/upload'
 }
